@@ -1,0 +1,13 @@
+spring:
+  application:
+    jwtSecret: "mySecretKey124567890qwertyuioasdfghjklzxcvbnm0987654321"
+    jwtExpirationMs: 86400000
+    name: NexBuy
+  profiles:
+    active: mysql
+
+logging:
+  level:
+    org:
+        springframework:
+            security: DEBUG
