@@ -39,4 +39,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "subcategory_id", nullable = false)
     private SubCategory subCategory;
+
+    @Column(name = "seller", nullable = false)
+    private String seller;
 }
