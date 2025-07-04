@@ -1,8 +1,8 @@
 package org.polimi.nexbuy.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.polimi.nexbuy.model.Product;
-import org.polimi.nexbuy.service.def.ProductService;
+import org.polimi.nexbuy.model.products.Product;
+import org.polimi.nexbuy.service.def.products.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

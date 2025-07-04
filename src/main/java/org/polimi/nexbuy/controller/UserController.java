@@ -2,9 +2,9 @@ package org.polimi.nexbuy.controller;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.polimi.nexbuy.DTO.request.UpdateUserRequest;
-import org.polimi.nexbuy.DTO.response.UserResponse;
-import org.polimi.nexbuy.service.def.UserService;
+import org.polimi.nexbuy.DTO.request.common.UpdateUserRequest;
+import org.polimi.nexbuy.DTO.response.common.UserResponse;
+import org.polimi.nexbuy.service.def.common.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

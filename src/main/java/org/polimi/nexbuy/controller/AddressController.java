@@ -2,13 +2,12 @@ package org.polimi.nexbuy.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.polimi.nexbuy.DTO.request.AddressRequest;
-import org.polimi.nexbuy.DTO.response.AddressResponse;
-import org.polimi.nexbuy.exception.AddressAlreadyExistsException;
-import org.polimi.nexbuy.exception.AddressNotFoundException;
-import org.polimi.nexbuy.model.Address;
-import org.polimi.nexbuy.repository.AddressRepository;
-import org.polimi.nexbuy.service.def.AddressService;
+import org.polimi.nexbuy.DTO.request.common.AddressRequest;
+import org.polimi.nexbuy.DTO.response.common.AddressResponse;
+import org.polimi.nexbuy.exception.common.AddressAlreadyExistsException;
+import org.polimi.nexbuy.exception.common.AddressNotFoundException;
+import org.polimi.nexbuy.model.common.Address;
+import org.polimi.nexbuy.service.def.common.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
 package org.polimi.nexbuy.util;
 
-import org.polimi.nexbuy.exception.CategoryAlreadyExistsException;
+import org.polimi.nexbuy.exception.products.CategoryAlreadyExistsException;
 
 import java.util.List;
 

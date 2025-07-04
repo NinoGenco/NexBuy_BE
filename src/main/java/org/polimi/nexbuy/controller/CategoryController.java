@@ -1,17 +1,15 @@
 package org.polimi.nexbuy.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.polimi.nexbuy.DTO.request.CategoryRequest;
-import org.polimi.nexbuy.DTO.response.CategoryResponse;
-import org.polimi.nexbuy.exception.CategoryNotFoundException;
-import org.polimi.nexbuy.model.Category;
-import org.polimi.nexbuy.service.def.CategoryService;
+import org.polimi.nexbuy.DTO.request.products.CategoryRequest;
+import org.polimi.nexbuy.DTO.response.products.CategoryResponse;
+import org.polimi.nexbuy.exception.products.CategoryNotFoundException;
+import org.polimi.nexbuy.model.products.Category;
+import org.polimi.nexbuy.service.def.products.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

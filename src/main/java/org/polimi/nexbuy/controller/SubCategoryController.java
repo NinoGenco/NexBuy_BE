@@ -1,19 +1,18 @@
 package org.polimi.nexbuy.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.polimi.nexbuy.DTO.request.SubCategoryRequest;
-import org.polimi.nexbuy.DTO.response.SubCategoryResponse;
-import org.polimi.nexbuy.exception.CategoryAlreadyExistsException;
-import org.polimi.nexbuy.exception.CategoryNotFoundException;
-import org.polimi.nexbuy.model.SubCategory;
-import org.polimi.nexbuy.service.def.SubCategoryService;
+import org.polimi.nexbuy.DTO.request.products.SubCategoryRequest;
+import org.polimi.nexbuy.DTO.response.products.SubCategoryResponse;
+import org.polimi.nexbuy.exception.products.CategoryAlreadyExistsException;
+import org.polimi.nexbuy.exception.products.CategoryNotFoundException;
+import org.polimi.nexbuy.model.products.SubCategory;
+import org.polimi.nexbuy.service.def.products.SubCategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/Ecommerce/subCategory")

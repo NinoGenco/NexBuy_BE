@@ -1,14 +1,13 @@
 package org.polimi.nexbuy.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.polimi.nexbuy.DTO.request.LoginRequest;
-import org.polimi.nexbuy.DTO.request.RegisterRequest;
-import org.polimi.nexbuy.DTO.response.LoginResponse;
-import org.polimi.nexbuy.DTO.response.UserResponse;
+import org.polimi.nexbuy.DTO.request.common.LoginRequest;
+import org.polimi.nexbuy.DTO.request.common.RegisterRequest;
+import org.polimi.nexbuy.DTO.response.common.LoginResponse;
+import org.polimi.nexbuy.DTO.response.common.UserResponse;
 import org.polimi.nexbuy.security.jwt.JwtUtils;
-import org.polimi.nexbuy.service.def.AuthService;
-import org.polimi.nexbuy.service.def.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.polimi.nexbuy.service.def.common.AuthService;
+import org.polimi.nexbuy.service.def.common.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
