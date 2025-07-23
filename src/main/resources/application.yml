@@ -1,13 +1,18 @@
 spring:
-  application:
-    jwtSecret: "mySecretKey124567890qwertyuioasdfghjklzxcvbnm0987654321"
-    jwtExpirationMs: 86400000
-    name: NexBuy
-  profiles:
-    active: mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/nexbuy_db?createDatabaseIfNotExist=true
+    username: kevin
+    password: kevin12345.
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-logging:
-  level:
-    org:
-        springframework:
-            security: DEBUG
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+    defer-datasource-initialization: true

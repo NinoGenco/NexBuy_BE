@@ -1,7 +1,7 @@
 package org.polimi.nexbuy.model.enums;
 
 public enum OrderStatus {
-    PENDINFG,
+    PENDING,
     PAID,
     SHIPPED,
     CANCELED
