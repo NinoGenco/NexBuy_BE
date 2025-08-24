@@ -24,8 +24,8 @@ import java.util.Map;
 @AllArgsConstructor
 public class EmailService {
 
-    /*private final JavaMailSender javaMailSender;
-    private final Configuration configuration;*/
+    private final JavaMailSender javaMailSender;
+    private final Configuration configuration;
 
     /**
      * Metodo per l'invio di email.
@@ -37,7 +37,7 @@ public class EmailService {
      * @param model Modello da utilizzare per il template.
      * @throws SendingMailException Eccezione lanciata in caso di errore durante l'invio dell'email.
      */
-    /*public void sendRegistrationEmail(
+    public void sendRegistrationEmail(
             String toAddress,
             String subject,
             @Nullable String cc,
@@ -75,6 +75,6 @@ public class EmailService {
             throw new SendingMailException("Errore durante l'invio della mail: IOException occurred.");
         }
 
-    }*/
+    }
 
 }

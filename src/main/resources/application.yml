@@ -16,3 +16,24 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     defer-datasource-initialization: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kscozzari03@gmail.com
+    password: bidi kyjd gete ysbx
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+        debug: true # Opzionale per sviluppo
+
+  freemarker:
+    template-loader-path: classpath:/templates
