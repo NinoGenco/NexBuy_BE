@@ -89,6 +89,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
+            filterChain.doFilter(request, response);
         } catch (ExpiredJwtException e) {
             jwtService.handleExpiredJwtException(jwt);
             exceptionManager.handleCustomExpiredJwtException(e);
@@ -101,6 +102,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }  catch (UsernameNotFoundException e) {
             userExceptionManager.handleUsernameNotFoundException(e);
         }
-        filterChain.doFilter(request, response);
     }
 }

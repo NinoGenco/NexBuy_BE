@@ -39,10 +39,16 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
 
-                        //user
-                        .requestMatchers("/api/v1/auth/authenticate").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
 
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/v1/user/update/**").authenticated()
+                        .requestMatchers("/api/v1/user/update-password/**").authenticated()
+                        .requestMatchers("/api/v1/user/username/**").authenticated()
+
+                        .requestMatchers("/api/v1/user/update-role/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
+                        .requestMatchers("/api/v1/user/users").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
+
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

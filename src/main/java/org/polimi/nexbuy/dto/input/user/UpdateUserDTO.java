@@ -16,6 +16,4 @@ public class UpdateUserDTO implements InputDTO {
 
     private String email;
 
-    private String username;
-
 }

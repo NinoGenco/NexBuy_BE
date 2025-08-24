@@ -3,7 +3,9 @@ package org.polimi.nexbuy.service.implementation;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.polimi.nexbuy.dto.output.user.UserSummaryDTO;
+import org.polimi.nexbuy.exception.DataAccessServiceException;
 import org.polimi.nexbuy.exception.DuplicateEmailException;
+import org.polimi.nexbuy.exception.customExceptions.InvalidDataException;
 import org.polimi.nexbuy.exception.customExceptions.user.UserNotFoundException;
 import org.polimi.nexbuy.model.User;
 import org.polimi.nexbuy.model.enums.UserRoles;
@@ -11,8 +13,11 @@ import org.polimi.nexbuy.repository.UserRepository;
 import org.polimi.nexbuy.service.UserService;
 import org.polimi.nexbuy.utils.ObjectUpdater;
 import org.polimi.nexbuy.utils.SecurityUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Classe Service per la gestione degli utenti.
@@ -28,20 +33,23 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public boolean updateUser(User user) throws IllegalAccessException, DuplicateEmailException {
+    public boolean updateUser(String username, User user) throws IllegalAccessException, DuplicateEmailException {
         String currentUsername = SecurityUtils.getCurrentUsername();
 
         User currentUser = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new UserNotFoundException("Utente non registrato!"));
 
-        if (!currentUser.getId().equals(user.getId())) {
+        User userToUpdate = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("Utente non trovato con username: " + username));
+
+        if (!currentUser.getUsername().equals(userToUpdate.getUsername())) {
             throw new IllegalAccessException("Non sei autorizzato a modificare questi dati!");
         }
 
-        if (!user.getEmail().equalsIgnoreCase(currentUser.getEmail())) {
+        if (!user.getEmail().equalsIgnoreCase(userToUpdate.getEmail())) {
             userRepository.findByEmail(user.getEmail())
                     .ifPresent(existingUser -> {
-                        if (!existingUser.getId().equals(user.getId())) {
+                        if (!existingUser.getUsername().equals(userToUpdate.getUsername())) {
                             try {
                                 throw new DuplicateEmailException("Email già utilizzata da un altro utente!");
                             } catch (DuplicateEmailException e) {
@@ -51,42 +59,41 @@ public class UserServiceImpl implements UserService {
                     });
         }
 
-        if (!user.getUsername().equalsIgnoreCase(currentUser.getUsername())) {
-            userRepository.findByUsername(user.getUsername())
-                    .ifPresent(existingUser -> {
-                        if (!existingUser.getId().equals(user.getId())) {
-                            try {
-                                throw new DuplicateEmailException("Username già utilizzato da un altro utente!");
-                            } catch (DuplicateEmailException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    });
-        }
+        user.setUsername(userToUpdate.getUsername());
 
         ObjectUpdater<User> userUpdater = new ObjectUpdater<>();
-        boolean toUpdate = userUpdater.updateObject(currentUser, user, currentUsername);
+        boolean toUpdate = userUpdater.updateObject(userToUpdate, user, currentUsername);
 
         if (toUpdate) {
-            userRepository.save(currentUser);
-            //sendUpdateEmail(currentUser);
+            userRepository.save(userToUpdate);
+            //sendUpdateEmail(userToUpdate);
         }
 
         return toUpdate;
     }
 
     @Override
-    public boolean updateRole(Long id, UserRoles role) throws IllegalAccessException, DuplicateEmailException {
+    public boolean updateRole(String username, UserRoles role) throws IllegalAccessException {
         String currentUsername = SecurityUtils.getCurrentUsername();
 
         User currentUser = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new UserNotFoundException("Utente non registrato!"));
 
-        User userToUpdate = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("Utente non trovato con id: " + id));
+        User userToUpdate = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("Utente non trovato con username: " + username));
 
-        if (!currentUser.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN)) {
-            throw new IllegalAccessException("Solo i Super Admin sono autorizzati a modificare i ruoli!");
+        if (!currentUser.getUserRoles().equals(UserRoles.ROLE_ADMIN) &&
+                !currentUser.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN)) {
+            throw new IllegalAccessException("Solo Admin e Super Admin sono autorizzati a modificare i ruoli!");
+        }
+
+        if (currentUser.getUserRoles().equals(UserRoles.ROLE_ADMIN)) {
+            if (userToUpdate.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN)) {
+                throw new IllegalAccessException("Non sei autorizzato a modificare un Super Admin!");
+            }
+            if (role.equals(UserRoles.ROLE_SUPER_ADMIN)) {
+                throw new IllegalAccessException("Non sei autorizzato a impostare il ruolo Super Admin!");
+            }
         }
 
         if (userToUpdate.getUserRoles() == role) {
@@ -99,44 +106,66 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updatePassword(Long id, String currentPassword, String newPassword) throws IllegalAccessException {
+    public void updatePassword(String username, String password) throws InvalidDataException, UserNotFoundException, IllegalAccessException {
         String currentUsername = SecurityUtils.getCurrentUsername();
 
         User currentUser = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new UserNotFoundException("Utente non registrato!"));
 
-        User userToUpdate = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("Utente non trovato con id: " + id));
+        User userToUpdate = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("Utente non trovato con username: " + username));
 
-        if (!currentUser.getId().equals(userToUpdate.getId())) {
-            throw new IllegalAccessException("Non sei autorizzato a modificare la password di altri utenti!");
+        if (!currentUser.getUsername().equals(userToUpdate.getUsername())) {
+            throw new IllegalAccessException("Non sei autorizzato a modificare questi dati!");
         }
 
-        if (!passwordEncoder.matches(currentPassword, userToUpdate.getPassword())) {
-            throw new IllegalAccessException("Password corrente errata!");
+        if (passwordEncoder.matches(password, currentUser.getPassword())) {
+            throw new InvalidDataException("La nuova password non può essere uguale alla vecchia!");
         }
 
-        if (passwordEncoder.matches(newPassword, userToUpdate.getPassword())) {
-            return false;
-        }
-
-        userToUpdate.setPassword(passwordEncoder.encode(newPassword));
+        userToUpdate.setPassword(passwordEncoder.encode(password));
         userRepository.save(userToUpdate);
-
-        // sendPasswordChangeEmail(userToUpdate);
-
-        return true;
     }
 
     @Override
-    public UserSummaryDTO getUserByUsername(String username)
+    public UserSummaryDTO getUserByUsername(String username) throws UserNotFoundException, IllegalAccessException {
+        String currentUsername = SecurityUtils.getCurrentUsername();
 
-            throws UserNotFoundException {
+        User currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new UserNotFoundException("Utente non registrato!"));
 
-        return userRepository.findByUsername(username)
-                .map(user -> new UserSummaryDTO(user))
-                .orElseThrow(() -> new UserNotFoundException("Utente non trovato!"));
+        User requestedUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("Utente non trovato con username: " + username));
 
+        if (!currentUser.getUserRoles().equals(UserRoles.ROLE_ADMIN) &&
+                !currentUser.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN) &&
+                !currentUser.getUsername().equals(requestedUser.getUsername())) {
+            throw new IllegalAccessException("Non sei autorizzato a visualizzare questi dati!");
+        }
+
+        return new UserSummaryDTO(requestedUser);
+    }
+
+    @Override
+    public List<UserSummaryDTO> getAllUsers() throws DataAccessServiceException, IllegalAccessException {
+        String currentUsername = SecurityUtils.getCurrentUsername();
+
+        User currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new UserNotFoundException("Utente non registrato!"));
+
+        if (!currentUser.getUserRoles().equals(UserRoles.ROLE_ADMIN) &&
+                !currentUser.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN)) {
+            throw new IllegalAccessException("Solo Admin e Super Admin possono visualizzare tutti gli utenti!");
+        }
+
+        try {
+            List<User> users = userRepository.findAll();
+            return users.stream()
+                    .map(UserSummaryDTO::new)
+                    .toList();
+        } catch (DataAccessException e) {
+            throw new DataAccessServiceException("Errore durante il recupero degli utenti!");
+        }
     }
 
 }

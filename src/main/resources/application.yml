@@ -17,11 +17,18 @@ spring:
     open-in-view: false
     defer-datasource-initialization: true
 
+  sql:
+    init:
+      data-locations: classpath:users.sql
+      platform: mysql
+      continue-on-error: true
+      mode: always
+
   mail:
     host: smtp.gmail.com
     port: 587
     username: kscozzari03@gmail.com
-    password: bidi kyjd gete ysbx
+    password: verw ppft hdfc myzj
     protocol: smtp
     default-encoding: UTF-8
     properties:

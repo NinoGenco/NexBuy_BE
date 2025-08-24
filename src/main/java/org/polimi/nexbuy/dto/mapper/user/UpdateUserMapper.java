@@ -17,7 +17,6 @@ public class UpdateUserMapper {
             user.setFirstName(userData.getFirstName());
             user.setLastName(userData.getLastName());
             user.setEmail(userData.getEmail());
-            user.setUsername(userData.getUsername());
             return user;
         }
     }
