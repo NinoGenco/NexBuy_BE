@@ -19,7 +19,7 @@ public class UserController {
 
     private final UserServiceImpl userService;
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
     public ResponseEntity<UserSummaryDTO> getUserByUsername (@PathVariable String username) throws UserNotFoundException {
 
         return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
