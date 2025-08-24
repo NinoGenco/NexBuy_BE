@@ -15,8 +15,8 @@ public class UpdateUserRoleMapper {
         else {
             User user = new User();
 
-            user.setUserRoles(userData.getUserRoles());
-            return user.getUserRoles();
+            user.setRole(userData.getRole());
+            return user.getRole();
         }
     }
 

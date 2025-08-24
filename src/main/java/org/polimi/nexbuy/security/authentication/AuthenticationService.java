@@ -94,7 +94,7 @@ public class AuthenticationService {
                     .email(user.getEmail())
                     .username(user.getUsername())
                     .password(passwordEncoder.encode(user.getPassword()))
-                    .userRoles(UserRoles.ROLE_USER)
+                    .role(UserRoles.ROLE_USER)
                     .build();
 
             try {

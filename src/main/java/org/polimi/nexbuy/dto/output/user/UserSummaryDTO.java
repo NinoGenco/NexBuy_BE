@@ -15,13 +15,13 @@ public class UserSummaryDTO {
     private String lastName;
     private String username;
     private String email;
-    private UserRoles userRoles;
+    private UserRoles role;
 
     public UserSummaryDTO(User user) {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.userRoles = user.getUserRoles();
+        this.role = user.getRole();
     }
 }

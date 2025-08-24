@@ -82,13 +82,13 @@ public class UserServiceImpl implements UserService {
         User userToUpdate = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("Utente non trovato con username: " + username));
 
-        if (!currentUser.getUserRoles().equals(UserRoles.ROLE_ADMIN) &&
-                !currentUser.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN)) {
+        if (!currentUser.getRole().equals(UserRoles.ROLE_ADMIN) &&
+                !currentUser.getRole().equals(UserRoles.ROLE_SUPER_ADMIN)) {
             throw new IllegalAccessException("Solo Admin e Super Admin sono autorizzati a modificare i ruoli!");
         }
 
-        if (currentUser.getUserRoles().equals(UserRoles.ROLE_ADMIN)) {
-            if (userToUpdate.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN)) {
+        if (currentUser.getRole().equals(UserRoles.ROLE_ADMIN)) {
+            if (userToUpdate.getRole().equals(UserRoles.ROLE_SUPER_ADMIN)) {
                 throw new IllegalAccessException("Non sei autorizzato a modificare un Super Admin!");
             }
             if (role.equals(UserRoles.ROLE_SUPER_ADMIN)) {
@@ -96,11 +96,11 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        if (userToUpdate.getUserRoles() == role) {
+        if (userToUpdate.getRole() == role) {
             return false;
         }
 
-        userToUpdate.setUserRoles(role);
+        userToUpdate.setRole(role);
         userRepository.save(userToUpdate);
         return true;
     }
@@ -137,8 +137,8 @@ public class UserServiceImpl implements UserService {
         User requestedUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("Utente non trovato con username: " + username));
 
-        if (!currentUser.getUserRoles().equals(UserRoles.ROLE_ADMIN) &&
-                !currentUser.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN) &&
+        if (!currentUser.getRole().equals(UserRoles.ROLE_ADMIN) &&
+                !currentUser.getRole().equals(UserRoles.ROLE_SUPER_ADMIN) &&
                 !currentUser.getUsername().equals(requestedUser.getUsername())) {
             throw new IllegalAccessException("Non sei autorizzato a visualizzare questi dati!");
         }
@@ -153,8 +153,8 @@ public class UserServiceImpl implements UserService {
         User currentUser = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new UserNotFoundException("Utente non registrato!"));
 
-        if (!currentUser.getUserRoles().equals(UserRoles.ROLE_ADMIN) &&
-                !currentUser.getUserRoles().equals(UserRoles.ROLE_SUPER_ADMIN)) {
+        if (!currentUser.getRole().equals(UserRoles.ROLE_ADMIN) &&
+                !currentUser.getRole().equals(UserRoles.ROLE_SUPER_ADMIN)) {
             throw new IllegalAccessException("Solo Admin e Super Admin possono visualizzare tutti gli utenti!");
         }
 

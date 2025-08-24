@@ -11,6 +11,6 @@ import org.polimi.nexbuy.model.enums.UserRoles;
 @NoArgsConstructor
 public class UpdateUserRoleDTO implements InputDTO {
 
-    private UserRoles userRoles;
+    private UserRoles role;
 
 }
