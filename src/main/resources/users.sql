@@ -1,4 +1,4 @@
-INSERT INTO user (id, first_name, last_name, email, username, password, user_roles) VALUES
+INSERT INTO user (id, first_name, last_name, email, username, password, role) VALUES
 ('1', 'Kevin', 'Scozzari', 'kscozzari03@gmail.com', 'kevi_sczr', '$2a$10$VYNxZKKylBToWtosgby0YuPAchELFwVOP7ugqIbdI79xfgg3uV./O', 'ROLE_SUPER_ADMIN'),
 ('2', 'Ruggiero', 'Loiacono', 'loiaconoruggiero@gmail.com', 'rug.loi', '$2a$10$VYNxZKKylBToWtosgby0YuPAchELFwVOP7ugqIbdI79xfgg3uV./O', 'ROLE_SUPER_ADMIN'),
 ('3', 'Ivan', 'Fazio', 'ivanfazio@gmail.com', 'ivan.fazio', '$2a$10$VYNxZKKylBToWtosgby0YuPAchELFwVOP7ugqIbdI79xfgg3uV./O', 'ROLE_ADMIN'),
