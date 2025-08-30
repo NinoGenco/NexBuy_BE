@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.polimi.nexbuy.model.enums.UserRoles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -42,8 +44,23 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRoles role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Address> addresses  = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Address> addresses = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Purchases> orders = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Review> reviews = new HashSet<>();
+
+    @OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
+    private Set<Product> products = new HashSet<>();
+
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)
+    private Set<Message> sentMessages = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
+    private Set<Message> receivedMessages = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

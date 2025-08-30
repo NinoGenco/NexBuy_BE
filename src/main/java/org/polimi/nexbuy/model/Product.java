@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -31,5 +36,26 @@ public class Product {
 
     @Column(nullable = false)
     private Integer quantity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subCategoryId", nullable = false)
+    private SubCategory subCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller", referencedColumnName = "id", nullable = false)
+    private User seller;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private Set<Review> reviews = new HashSet<>();
+
+    @OneToMany(mappedBy = "product",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Image> images = new HashSet<>();
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private Set<OrderItem> orderItems = new HashSet<>();
 
 }

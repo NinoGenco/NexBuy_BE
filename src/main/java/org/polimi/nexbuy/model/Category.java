@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Builder
 @Data
@@ -22,5 +25,8 @@ public class Category {
 
     @Column(length = 255)
     private String description;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<SubCategory> subCategories = new HashSet<>();
 
 }

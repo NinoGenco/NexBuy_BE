@@ -3,6 +3,7 @@ package org.polimi.nexbuy.dto.input;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.polimi.nexbuy.dto.input.product.ProductDTO;
+import org.polimi.nexbuy.dto.input.product.UpdateProductDTO;
 import org.polimi.nexbuy.dto.input.user.*;
 
 @JsonTypeInfo(
@@ -18,8 +19,8 @@ import org.polimi.nexbuy.dto.input.user.*;
         @JsonSubTypes.Type(value = UpdateUserPasswordDTO.class, name = "update_password"),
         @JsonSubTypes.Type(value = UpdateUserRoleDTO.class, name = "update_role"),
 
-        //product
-        @JsonSubTypes.Type(value = ProductDTO.class, name = "product")
+        @JsonSubTypes.Type(value = ProductDTO.class, name = "create_product"),
+        @JsonSubTypes.Type(value = UpdateProductDTO.class, name = "update_product"),
 })
 public interface InputDTO {
 }

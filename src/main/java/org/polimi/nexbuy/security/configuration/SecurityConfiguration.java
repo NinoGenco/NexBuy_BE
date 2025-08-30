@@ -48,6 +48,10 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/user/update-role/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
                         .requestMatchers("/api/v1/user/users").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
 
+                        .requestMatchers("/api/v1/product/create").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
+                        .requestMatchers("/api/v1/product/update").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
+                        .requestMatchers("/api/v1/product/delete").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement()

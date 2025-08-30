@@ -63,10 +63,10 @@ public class AuthenticationController {
 
                 return new ResponseEntity<>(new ResponseMessage("Utente registrato"), HttpStatus.OK);
             } else {
-                throw new IllegalArgumentException("User not registered - Invalid CustomType");
+                throw new IllegalArgumentException("Utente non aggiornato - CustomType non valido");
             }
         } catch (JsonParseException e){
-            throw new HttpMessageNotReadableException("Message Not Readable");
+            throw new HttpMessageNotReadableException("Messaggio non leggibile");
         }
 
     }
@@ -89,7 +89,7 @@ public class AuthenticationController {
 
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
-                throw new IllegalArgumentException("User non authenticated");
+                throw new IllegalArgumentException("Utente non autenticato");
             }
         } catch (JsonParseException e) {
             throw new HttpMessageNotReadableException("Invalid data");

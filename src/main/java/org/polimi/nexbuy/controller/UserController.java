@@ -88,9 +88,9 @@ public class UserController {
 
         if (requestDTO instanceof UpdateUserPasswordDTO) {
             userService.updatePassword(username, updateUserPasswordMapper.userDTOToUser(requestDTO));
-            return new ResponseEntity<>(new ResponseMessage("Password updated"), HttpStatus.OK);
+            return new ResponseEntity<>(new ResponseMessage("Password modificata"), HttpStatus.OK);
         } else {
-            throw new IllegalArgumentException("Password not updated");
+            throw new IllegalArgumentException("Password non modificata - CustomType non valido");
         }
 
     }

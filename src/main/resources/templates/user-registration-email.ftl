@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="it">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>${subject}</title>
     <style>
         body {
-            background: #ddd3;
+            background: #e6f2ff; /* Sfondo azzurro chiaro */
             height: 100vh;
             display: flex;
             align-content: center;
             justify-content: center;
-            font-family: Muli, serif;
+            font-family: Arial, sans-serif;
             font-size: 14px;
             margin: 0;
         }
@@ -19,10 +19,11 @@
             width: 100%;
             max-width: 600px;
             box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            border-top: 3px solid;
-            border-bottom: 3px solid;
+            border-top: 3px solid #007bff; /* Blu acceso */
+            border-bottom: 3px solid #007bff; /* Blu acceso */
             border-left: none;
             border-right: none;
+            border-radius: 10px;
         }
 
         @media(max-width:768px) {
@@ -32,10 +33,10 @@
         }
 
         .header {
-            background-color: #000000;
+            background-color: #212529; /* Grigio scuro */
             padding: 20px 0;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 10px 10px 0 0;
         }
 
         .title {
@@ -43,114 +44,88 @@
             font-weight: 600;
             margin-bottom: 2vh;
             padding: 0 8%;
-            font-size: initial;
+            font-size: 16px;
         }
 
         .footer {
-            background-color: #000000;
+            background-color: #212529; /* Grigio scuro */
             padding: 20px 0;
             text-align: center;
-            border-radius: 10px;
-            color: white;
-            font-size: 10px;
+            border-radius: 0 0 10px 10px;
+            color: #f8f9fa; /* Bianco leggero per il testo */
+            font-size: 12px;
+        }
+
+        a.btn {
+            background-color: #28a745; /* Verde brillante */
+            border-radius: 25px;
+            padding: 12px 25px;
+            display: inline-block;
+            color: #fff !important;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body style="margin: 0; text-align: center">
 <center>
-<div class="card" style="margin: 0;">
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border: 1px solid #dce1e5; padding: 10px; margin: 0; ">
-        <tr>
-            <td width="2%">&nbsp;</td>
-            <td height="75" width="96%" align="center">
-                <div class="header">
-                    <p style="color:#eea617;font-family: Tahoma,serif; font-style:normal; font-size:28px; margin: 5px 0;">Benvenuto/a, ${name}</p>
-                </div>
-            </td>
-            <td width="2%">&nbsp;</td>
-        </tr>
-        <tr>
-            <td width="2%">&nbsp;</td>
-            <td width="96%" align="center">
-                <div class="title">
-                    <br>
-                    <br>
-                    <h4>Grazie per esserti registrato a Theater, il nostro software per la gestione di eventi teatrali.</h4>
-                    <h4>Abbiamo ricevuto con successo la tua registrazione e siamo entusiasti di averti con noi.</h4>
-                    <h4>Per ulteriori informazioni o assistenza, non esitare a contattarci.</h4>
-                    <h4>Grazie ancora e benvenuto nel mondo di Theater!</h4>
-                    <br>
-                </div>
-            </td>
-            <td style="width: 2%">&nbsp;</td>
-        </tr>
-        <!-- Inserted Username and Button Section Here -->
-        <tr>
-            <td style="width: 2%">&nbsp;</td>
-            <td style="width: 96%; align-content: center">
-                    <span style="font-size: 14px; font-family: Arial, serif; color: #000000; text-align: center; margin-top: 20px; margin-bottom: 20px; display: block;">
-                        <span style="font-size: 18px;"><b>Username</b>:</span> <span style="font-size: 16px; display: block;">${username}</span>
-                    </span>
-                <hr style="border: 1px solid #dce1e5; margin: 20px 0;">
-            </td>
-            <td style="width: 2%">&nbsp;</td>
-        </tr>
-        <tr>
-            <td style="width: 2%">&nbsp;</td>
-            <td style="width: 96%; align-content: center">
-                    <span style="font-size: x-small; font-family: Arial,serif; color: #000000; ">
-                        <p style=" font-size:14px; margin-top: 5px">
-                            <br/>
+    <div class="card">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border: 1px solid #dce1e5; padding: 10px; margin: 0;">
+            <tr>
+                <td width="2%">&nbsp;</td>
+                <td height="75" width="96%" align="center">
+                    <div class="header">
+                        <p style="color:#007bff;font-family: Arial, sans-serif; font-style:normal; font-size:28px; margin: 5px 0;">Benvenuto/a, ${name}</p>
+                    </div>
+                </td>
+                <td width="2%">&nbsp;</td>
+            </tr>
+            <tr>
+                <td width="2%">&nbsp;</td>
+                <td width="96%" align="center">
+                    <div class="title">
+                        <br>
+                        <h4>Grazie per esserti registrato a <b>NexBuy</b>, il nostro e-commerce per lo shopping online.</h4>
+                        <h4>Abbiamo ricevuto con successo la tua registrazione e siamo entusiasti di averti nella nostra community di acquirenti.</h4>
+                        <h4>Da oggi potrai acquistare i tuoi prodotti preferiti in modo semplice, veloce e sicuro.</h4>
+                        <br>
+                    </div>
+                </td>
+                <td width="2%">&nbsp;</td>
+            </tr>
+            <tr>
+                <td width="2%">&nbsp;</td>
+                <td width="96%" align="center" style="padding-bottom: 40px;"> <p style="font-size:16px; margin: 20px 0;">
+                        <b>Per iniziare a fare acquisti, visita subito il sito:</b>
+                    </p>
+                    <a href="https://www.nexbuy.com/activate" class="btn" target="_blank">Inizia ad acquistare</a>
+                </td>
+                <td width="2%">&nbsp;</td>
+            </tr>
+            <tr>
+                <td width="2%">&nbsp;</td>
+                <td width="96%" align="center">
+                    <div class="footer">
+                        <p style="margin: 10px 0;">
+                            Puoi gestire le tue informazioni e i tuoi ordini in qualsiasi momento visitando la sezione <b>“Il mio account”</b> sul sito <a href="https://www.nexbuy.com" style="color:#007bff;">www.nexbuy.com</a>.
                         </p>
-                        <center>
-                            <p style="font-size:14px; margin-bottom: 20px">
-                                <span style="font-size: 18px;"><b>Per attivare il tuo account Theater, verifica i tuoi dati e conferma il tuo account.</b></span>
-                            </p>
-                        </center>
-                    </span>
-            </td>
-            <td style="width: 2%">&nbsp;</td>
-        </tr>
-        <tr>
-            <td style="width: 2%">&nbsp;</td>
-            <td style="width: 96%; align-content: center; text-align: center;">
-                <table style="margin: 0 auto;">
-                    <tr>
-                        <td style="width: 60%;">
-                            <div style="background-color: #eea617; border-radius: 25px; padding: 10px; display: inline-block; width: 200px;">
-                                <a customerName="" style="color: #fff; text-decoration: none; font-size: 16px; font-weight: 550; letter-spacing: 1px;" target="_blank" href="https://www.elis.org/" title="Activate my account">Confirm my account</a>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td style="width: 2%">&nbsp;</td>
-        </tr>
-        <td style="width: 2%">&nbsp;</td>
-        <!-- End of Inserted Section -->
-        <tr>
-            <td width="2%">&nbsp;</td>
-            <td width="96%" align="center">
-                <div class="footer">
-                    <p style="font-size:14px; margin-top: 20px">
-                        Puoi modificare le tue informazioni di accesso in qualsiasi momento visitando la sezione &quot;My Account&quot; situata su <a customerName="" href="https://www.elis.org/" style="color: #eea617;">https://www.nomedelsito.com/</a>.
-                    </p>
-                    <p style="font-size:14px; margin-top: 20px">
-                        Per ulteriori informazioni, non esitate a contattare il nostro team di supporto esperto al numero <br/><br/><b>+39 3459571714</b>.<br/><br/>
-                    </p>
-                    <p style="font-size:14px;">
-                        Saluti,
-                    </p>
-                    <p style="font-size:14px; margin-bottom: 30px">
-                        Il Team Theater
-                    </p>
-                    <hr style="border: 1px solid #dce1e5; margin: 20px 0;">
-                </div>
-            </td>
-            <td width="2%">&nbsp;</td>
-        </tr>
-    </table>
-</div>
+                        <p style="margin: 10px 0;">
+                            Per ulteriori informazioni o assistenza, contatta il nostro team di supporto al numero <br/><b>+39 345 9571714</b>.
+                        </p>
+                        <p style="margin: 10px 0;">
+                            Buono shopping! 🛒
+                        </p>
+                        <p style="margin: 10px 0;">
+                            Il Team NexBuy
+                        </p>
+                        <hr style="border: 1px solid #495057; margin: 20px 0;"> </div>
+                </td>
+                <td width="2%">&nbsp;</td>
+            </tr>
+        </table>
+    </div>
 </center>
 </body>
 </html>

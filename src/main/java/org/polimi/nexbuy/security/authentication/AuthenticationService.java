@@ -19,7 +19,6 @@ import org.polimi.nexbuy.repository.UserRepository;
 import org.polimi.nexbuy.security.configuration.JwtService;
 import org.polimi.nexbuy.service.implementation.TokenServiceImpl;
 import org.polimi.nexbuy.service.mail.EmailService;
-import org.polimi.nexbuy.utils.SecurityUtils;
 import org.polimi.nexbuy.utils.validation.validator.UserRegistrationValidator;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -105,7 +104,7 @@ public class AuthenticationService {
                 throw new UnregisteredUserException("Errore durante la registrazione: qualcosa è andato storto!");
             }
 
-            //sendRegistrationEmail(userToInsert);
+            sendRegistrationEmail(userToInsert);
 
         } else {
             throw new UserAlreadyExistException("Errore durante la registrazione!");
@@ -171,9 +170,8 @@ public class AuthenticationService {
         Map<String, Object> emailModel = new HashMap<>();
         emailModel.put("subject", "Registrazione utente");
         emailModel.put("name", user.getFirstName());
-        emailModel.put("username", user.getUsername());
 
-        //emailService.sendRegistrationEmail(user.getEmail(), (String) emailModel.get("subject"), null, null, "user-registration-email", emailModel);
+        emailService.sendRegistrationEmail(user.getEmail(), (String) emailModel.get("subject"), null, null, "user-registration-email", emailModel);
 
     }
 

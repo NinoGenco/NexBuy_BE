@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/nexbuy_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/nexbuy_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
     username: kevin
     password: kevin12345.
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,16 +19,19 @@ spring:
 
   sql:
     init:
-      data-locations: classpath:users.sql
-      platform: mysql
-      continue-on-error: true
       mode: always
+      data-locations:
+        - classpath:users.sql
+        - classpath:category.sql
+        - classpath:sub_category.sql
+      continue-on-error: true
+      platform: mysql
 
   mail:
     host: smtp.gmail.com
     port: 587
     username: kscozzari03@gmail.com
-    password: verw ppft hdfc myzj
+    password: hrnp gfah bxts hzly
     protocol: smtp
     default-encoding: UTF-8
     properties:
