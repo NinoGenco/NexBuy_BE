@@ -3,7 +3,6 @@ package org.polimi.nexbuy.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import org.polimi.nexbuy.dto.input.InputDTO;
 import org.polimi.nexbuy.dto.input.product.ProductDTO;
 import org.polimi.nexbuy.dto.input.product.UpdateProductDTO;
 import org.polimi.nexbuy.dto.mapper.product.ProductMapper;
