@@ -10,6 +10,7 @@ import org.polimi.nexbuy.model.Product;
 @NoArgsConstructor
 public class ProductSummaryDTO {
 
+    private Long id;
     private String name;
     private String description;
     private String manufacturer;
@@ -17,6 +18,7 @@ public class ProductSummaryDTO {
     private Integer quantity;
 
     public ProductSummaryDTO(Product product) {
+        this.id = product.getId();
         this.name = product.getName();
         this.description = product.getDescription();
         this.manufacturer = product.getManufacturer();

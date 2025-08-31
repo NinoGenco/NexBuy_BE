@@ -104,7 +104,7 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ResponseEntity<List<ProductSummaryDTO>> getAllProducts() throws DataAccessServiceException, IllegalAccessException {
         List<ProductSummaryDTO> products = productService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);

@@ -1,7 +1,6 @@
 package org.polimi.nexbuy.dto.mapper.product;
 
 import org.polimi.nexbuy.dto.input.InputDTO;
-import org.polimi.nexbuy.dto.input.product.ProductDTO;
 import org.polimi.nexbuy.dto.input.product.UpdateProductDTO;
 import org.polimi.nexbuy.model.Product;
 import org.springframework.stereotype.Component;
@@ -15,6 +14,7 @@ public class UpdateProductMapper {
         else {
             Product product = new Product();
 
+            product.setId(product.getId());
             product.setName(productData.getName());
             product.setDescription(productData.getDescription());
             product.setManufacturer(productData.getManufacturer());
