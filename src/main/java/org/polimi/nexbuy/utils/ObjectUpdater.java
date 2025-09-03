@@ -1,6 +1,8 @@
 package org.polimi.nexbuy.utils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 
 /**
@@ -28,9 +30,7 @@ public class ObjectUpdater<T> {
             Object oldValue = field.get(object);
             Object fieldValue = field.get(newObject);
 
-            if (fieldValue != null
-                    && !(fieldValue.equals(oldValue))
-                    && !(fieldValue instanceof HashSet<?>)) {
+            if (fieldValue != null && !fieldValue.equals(oldValue) && !(fieldValue instanceof Collection)) {
                 field.set(object, fieldValue);
                 isUpdate = true;
             }

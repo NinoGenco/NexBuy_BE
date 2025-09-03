@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.polimi.nexbuy.dto.input.InputDTO;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,5 +21,9 @@ public class UpdateProductDTO implements InputDTO {
     private Double price;
 
     private Integer quantity;
+
+    private Long subCategoryId;
+
+    private List<Long> deleteImages;
 
 }

@@ -1,10 +1,7 @@
 package org.polimi.nexbuy.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Blob;
 
@@ -13,6 +10,7 @@ import java.sql.Blob;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Image {
 
     @Id
@@ -25,6 +23,7 @@ public class Image {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
+    @EqualsAndHashCode.Exclude
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)

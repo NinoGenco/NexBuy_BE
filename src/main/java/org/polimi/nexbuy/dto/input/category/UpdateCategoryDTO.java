@@ -1,4 +1,4 @@
-package org.polimi.nexbuy.dto.input.product;
+package org.polimi.nexbuy.dto.input.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,18 +8,10 @@ import org.polimi.nexbuy.dto.input.InputDTO;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO implements InputDTO {
+public class UpdateCategoryDTO implements InputDTO {
 
     private String name;
 
     private String description;
-
-    private String manufacturer;
-
-    private Double price;
-
-    private Integer quantity;
-
-    private Long subCategoryId;
 
 }

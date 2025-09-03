@@ -47,13 +47,12 @@ public class ProductController {
     )
     public ResponseEntity<ResponseMessage> createProduct(
             @RequestParam("product") String productJson,
-            @RequestParam("subCategoryId") Long subCategoryId,
             @RequestParam(value = "files", required = false) List<MultipartFile> files
     ) throws DataAccessServiceException {
 
         try {
             ProductDTO productDTO = objectMapper.readValue(productJson, ProductDTO.class);
-            productService.createProduct(productMapper.productDTOToProduct(productDTO), files, subCategoryId);
+            productService.createProduct(productMapper.productDTOToProduct(productDTO), files, productDTO.getSubCategoryId());
 
             return new ResponseEntity<>(new ResponseMessage("Prodotto registrato"), HttpStatus.OK);
         } catch (JsonProcessingException e) {
@@ -62,12 +61,10 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<ResponseMessage> update(
+    public ResponseEntity<ResponseMessage> updateProduct(
             @PathVariable Long id,
             @RequestPart("product") String productJson,
-            @RequestPart(value = "files", required = false) List<MultipartFile> files,
-            @RequestParam(value = "subCategoryId", required = false) Long subCategoryId,
-            @RequestParam(value = "deleteImages", required = false) List<Long> deleteImages
+            @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) throws UserNotFoundException, IllegalAccessException, InvalidDataException, DuplicateEmailException, SendingMailException {
 
         try {
@@ -76,8 +73,8 @@ public class ProductController {
                     id,
                     updateProductMapper.productDTOToProduct(productDTO),
                     files,
-                    subCategoryId,
-                    deleteImages
+                    productDTO.getSubCategoryId(),
+                    productDTO.getDeleteImages()
             );
 
             if (isUpdated) {

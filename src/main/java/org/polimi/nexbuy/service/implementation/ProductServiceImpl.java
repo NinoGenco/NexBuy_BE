@@ -67,6 +67,7 @@ public class ProductServiceImpl implements ProductService {
 
         try {
             productRepository.save(productToInsert);
+
             if (files != null && !files.isEmpty()) {
                 imageService.saveProductImages(files, productToInsert);
             }
@@ -150,11 +151,11 @@ public class ProductServiceImpl implements ProductService {
     public ProductSummaryDTO getProductById(Long id) throws ProductNotFoundException, IllegalAccessException {
 
         String currentUsername = SecurityUtils.getCurrentUsername();
-
         User currentUser = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new UserNotFoundException("Utente non registrato!"));
 
-        Product requestedProduct = productRepository.findById(id)
+        Product requestedProduct = productRepository
+                .findByIdWithImages(id)
                 .orElseThrow(() -> new ProductNotFoundException("Prodotto non trovato con id: " + id));
 
         if (!currentUser.getRole().equals(UserRoles.ROLE_ADMIN) &&
@@ -169,7 +170,6 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductSummaryDTO> getAllProducts() throws DataAccessServiceException, IllegalAccessException {
 
         String currentUsername = SecurityUtils.getCurrentUsername();
-
         User currentUser = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new UserNotFoundException("Utente non registrato!"));
 
@@ -179,11 +179,12 @@ public class ProductServiceImpl implements ProductService {
         }
 
         try {
-            List<Product> products = productRepository.findAll();
+            List<Product> products = productRepository.findAllWithImages();
+
             return products.stream()
                     .map(ProductSummaryDTO::new)
                     .toList();
-        } catch (DataAccessException e) {
+        } catch (org.springframework.dao.DataAccessException e) {
             throw new DataAccessServiceException("Errore durante il recupero degli utenti!");
         }
     }

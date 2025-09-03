@@ -1,5 +1,6 @@
 package org.polimi.nexbuy.service.implementation;
 
+import org.polimi.nexbuy.repository.ProductRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 import org.polimi.nexbuy.model.Image;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -23,6 +25,7 @@ import java.util.concurrent.*;
 public class ImageServiceImpl implements ImageService {
 
     private final ImageRepository imageRepository;
+    private final ProductRepository productRepository;
 
     private final ExecutorService executorService = new ThreadPoolExecutor(
             Runtime.getRuntime().availableProcessors(),
@@ -41,15 +44,20 @@ public class ImageServiceImpl implements ImageService {
     }
 
     public void saveImages(List<MultipartFile> files, Product product, Review review) {
-        List<Image> images = new ArrayList<>();
-
         for (MultipartFile file : files) {
-            images.add(convertAndSave(file, product, review));
+            Image image = convertAndSave(file, product, review);
+
+            if (product != null && image != null) {
+                if (product.getImages() == null) {
+                    throw new IllegalStateException("La collezione images è null nonostante @Builder.Default");
+                }
+                product.getImages().add(image);
+            }
         }
 
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW, timeout = 10)
+    @Transactional
     public Image convertAndSave(MultipartFile file, Product product, Review review) {
         try {
             Blob blob = new SerialBlob(file.getBytes());
