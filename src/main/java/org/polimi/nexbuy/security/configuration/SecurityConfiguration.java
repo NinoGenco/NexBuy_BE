@@ -51,6 +51,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/product/create").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
                         .requestMatchers("/api/v1/product/update").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
                         .requestMatchers("/api/v1/product/delete").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
+                        .requestMatchers("/api/v1/product/products").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
 
                         .anyRequest().authenticated()
                 )
