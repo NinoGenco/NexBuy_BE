@@ -8,7 +8,7 @@ import org.polimi.nexbuy.dto.input.InputDTO;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubCategoryDTO implements InputDTO {
+public class UpdateSubCategoryDTO implements InputDTO {
 
     private String name;
 

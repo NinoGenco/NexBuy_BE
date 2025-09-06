@@ -1,21 +1,21 @@
 package org.polimi.nexbuy.service;
-
-import org.polimi.nexbuy.dto.output.category.CategorySummaryDTO;
+;
+import org.polimi.nexbuy.dto.output.sub_category.SubCategorySummaryDTO;
 import org.polimi.nexbuy.exception.DataAccessServiceException;
-import org.polimi.nexbuy.model.Category;
+import org.polimi.nexbuy.model.SubCategory;
 
 import java.util.List;
 
 public interface SubCategoryService {
 
-    void createSubCategory(Category category) throws DataAccessServiceException;
+    void createSubCategory(SubCategory subCategory, String categoryName) throws DataAccessServiceException;
 
-    boolean updateSubCategory(Category category, String name) throws DataAccessServiceException, IllegalAccessException;
+    boolean updateSubCategory(SubCategory subCategory, String subCategoryName, String categoryName) throws DataAccessServiceException, IllegalAccessException;
 
     void deleteSubCategory(String name) throws DataAccessServiceException;
 
-    CategorySummaryDTO getSubCategoryByName(String name) throws DataAccessServiceException, IllegalAccessException;
+    SubCategorySummaryDTO getSubCategoryByName(String name) throws DataAccessServiceException, IllegalAccessException;
 
-    List<CategorySummaryDTO> getAllSubCategories() throws DataAccessServiceException, IllegalAccessException;
+    List<SubCategorySummaryDTO> getAllSubCategories() throws DataAccessServiceException, IllegalAccessException;
 
 }

@@ -5,7 +5,7 @@ import org.polimi.nexbuy.model.SubCategory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SubCategoryMapper {
+public class UpdateSubCategoryMapper {
 
     public SubCategory subCategoryDTOToSubCategory(InputDTO subCategoryDTO) {
         if (!(subCategoryDTO instanceof SubCategory subCategoryData))

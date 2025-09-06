@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.hibernate.TransientObjectException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.exception.LockAcquisitionException;
+import org.polimi.nexbuy.dto.output.sub_category.SubCategorySummaryDTO;
 import org.polimi.nexbuy.exception.DataAccessServiceException;
 import org.polimi.nexbuy.exception.customExceptions.user.UserNotFoundException;
 import org.polimi.nexbuy.model.Category;
@@ -21,13 +22,15 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @SuppressWarnings("All")
 @Service
 @Transactional
 @AllArgsConstructor
-public class SubCategoryServiceImpl {
+public class SubCategoryServiceImpl implements SubCategoryService {
 
-    /*private final SubCategoryRepository subCategoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
 
@@ -65,7 +68,7 @@ public class SubCategoryServiceImpl {
     }
 
     @Override
-    public boolean updateSubCategory(SubCategory subCategory, String name) throws IllegalAccessException {
+    public boolean updateSubCategory(SubCategory subCategory, String subCategoryName, String categoryName) throws IllegalAccessException {
         String currentUsername = SecurityUtils.getCurrentUsername();
 
         User currentUser = userRepository.findByUsername(currentUsername)
@@ -76,8 +79,8 @@ public class SubCategoryServiceImpl {
             throw new SecurityException("Solo Admin e Super Admin possono modificare le sottocategorie!");
         }
 
-        SubCategory subCategoryToUpdate = subCategoryRepository.findByName(name)
-                .orElseThrow(() -> new UserNotFoundException("Sottocategoria non trovata con nome: " + name));
+        SubCategory subCategoryToUpdate = subCategoryRepository.findByName(categoryName)
+                .orElseThrow(() -> new UserNotFoundException("Sottocategoria non trovata con nome: " + categoryName));
 
         if (subCategory.getName() != null && !subCategory.getName().equals(subCategoryToUpdate.getName())) {
             if (subCategoryRepository.existsByNameAndCategory(subCategory.getName(), subCategoryToUpdate.getCategory())) {
@@ -155,5 +158,5 @@ public class SubCategoryServiceImpl {
         } catch (DataAccessException e) {
             throw new DataAccessServiceException("Errore durante il recupero delle sottocategorie!");
         }
-    }*/
+    }
 }
