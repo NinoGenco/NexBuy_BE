@@ -24,6 +24,7 @@ spring:
         - classpath:users.sql
         - classpath:category.sql
         - classpath:sub_category.sql
+        - classpath:product.sql
       continue-on-error: true
       platform: mysql
 
